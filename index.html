@@ -19,6 +19,16 @@
   a{text-decoration:none;color:inherit}
   .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 
+  /* grid floor motif */
+  .grid-floor{position:absolute;top:0;left:-50%;right:-50%;bottom:0;
+    background-image:linear-gradient(var(--violet) 1px,transparent 1px),linear-gradient(90deg,var(--violet) 1px,transparent 1px);
+    background-size:54px 54px;opacity:.35;
+    transform:perspective(420px) rotateX(62deg);transform-origin:bottom;
+    mask-image:linear-gradient(to top,#fff 0%,transparent 60%);pointer-events:none}
+  .grid-floor.animate{animation:gridflow 1.6s linear infinite}
+  @keyframes gridflow{to{background-position:0 54px}}
+  .grid-host{position:relative;overflow:hidden}
+
   /* nav */
   nav{position:sticky;top:0;z-index:50;background:rgba(10,6,18,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
@@ -27,7 +37,8 @@
   .nav-cta{background:var(--pink);color:#fff;font-family:'Space Grotesk';font-weight:600;font-size:14px;padding:10px 20px;border-radius:8px;box-shadow:0 0 18px rgba(255,46,154,.4)}
 
   /* ===== PRODUCT TOP ===== */
-  .top{padding:44px 0 70px}
+  .top{padding:44px 0 120px;position:relative;overflow:hidden}
+  .top .wrap{position:relative;z-index:1}
   .top-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:start}
 
   /* gallery */
@@ -160,7 +171,8 @@
   .rev .vf{color:var(--lime);font-size:12px;display:flex;align-items:center;gap:4px}
 
   /* guarantee band */
-  .guar{margin-top:0;text-align:center;padding:96px 24px;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .guar{margin-top:0;text-align:center;padding:96px 24px;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .guar>*:not(.grid-floor){position:relative;z-index:1}
   .guar .ic{width:72px;height:72px;border-radius:18px;background:rgba(198,255,78,.14);color:var(--lime);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px}
   .guar h2{font-size:clamp(30px,4.6vw,52px);font-weight:700;line-height:1.02;max-width:16ch;margin:0 auto 18px}
   .guar h2 em{font-style:italic;color:var(--lime)}
@@ -178,6 +190,7 @@
 
   /* final cta */
   .final{text-align:center;padding:100px 24px 110px;position:relative;overflow:hidden;background:var(--bg)}
+  .final>*{position:relative;z-index:1}
   .final h2{font-size:clamp(32px,5vw,60px);font-weight:700;line-height:.98;max-width:15ch;margin:0 auto 20px}
   .final h2 em{font-style:normal;color:var(--pink)}
   .final p{color:var(--mut);font-size:18px;max-width:42ch;margin:0 auto 32px}
@@ -278,6 +291,142 @@
     .vs-mid{width:auto;height:52px}
     .stickybar .sb-t{display:none}
   }
+  /* ── THEME OVERRIDES ───────────────────────────── */
+
+  /* A: Pure Black — zero purple cast, maximum pop */
+  [data-theme="black"]{
+    --bg:#000000; --bg2:#0d0d0d; --panel:#141414; --panel2:#1c1c1c;
+    --txt:#ffffff; --mut:#888888; --line:rgba(255,255,255,.1);
+    --pink:#ff2e9a; --lime:#c6ff4e; --violet:#888888; --amber:#ffb627; --cyan:#2ff3e0;
+  }
+  [data-theme="black"] .grid-floor{background-image:linear-gradient(rgba(255,46,154,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,46,154,.35) 1px,transparent 1px)}
+  [data-theme="black"] .lead{color:var(--pink)}
+  [data-theme="black"] .wbh-us::before{background:var(--pink)}
+  [data-theme="black"] .step-tab.active .num{color:var(--lime)}
+
+  /* B: Midnight Navy — deep blue, DTC-premium, serious brand */
+  [data-theme="navy"]{
+    --bg:#060d1a; --bg2:#0c1628; --panel:#101f38; --panel2:#162848;
+    --txt:#ffffff; --mut:#7a92b8; --line:rgba(100,160,255,.18);
+    --pink:#ff2e9a; --lime:#c6ff4e; --violet:#3b82f6; --amber:#ffb627; --cyan:#60a5fa;
+  }
+  [data-theme="navy"] .grid-floor{background-image:linear-gradient(rgba(96,165,250,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.4) 1px,transparent 1px)}
+  [data-theme="navy"] .lead{color:var(--cyan)}
+  [data-theme="navy"] nav{background:rgba(6,13,26,.88)}
+  [data-theme="navy"] .stickybar{background:rgba(6,13,26,.94)}
+  [data-theme="navy"] .step-tab.active .num{color:var(--lime)}
+  [data-theme="navy"] .wbh-us::before{background:var(--pink)}
+
+  /* C: Warm Charcoal — neutral dark, no purple or blue cast */
+  [data-theme="charcoal"]{
+    --bg:#111111; --bg2:#1a1a1a; --panel:#222222; --panel2:#2a2a2a;
+    --txt:#ffffff; --mut:#999999; --line:rgba(255,255,255,.08);
+    --pink:#ff2e9a; --lime:#c6ff4e; --violet:#555555; --amber:#ffb627; --cyan:#2ff3e0;
+  }
+  [data-theme="charcoal"] .grid-floor{background-image:linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px)}
+  [data-theme="charcoal"] .lead{color:var(--lime)}
+  [data-theme="charcoal"] .wbh-us::before{background:var(--lime)}
+  [data-theme="charcoal"] .wbh-us{background:rgba(198,255,78,.04)}
+  [data-theme="charcoal"] .sec-h em{color:var(--lime)}
+  [data-theme="charcoal"] nav{background:rgba(17,17,17,.9)}
+  [data-theme="charcoal"] .stickybar{background:rgba(17,17,17,.96)}
+  [data-theme="charcoal"] .step-tab.active .num{color:var(--pink)}
+
+  /* D: Split — black hero/dark sections, near-white middle sections */
+  [data-theme="split"]{
+    --bg:#0a0a0a; --bg2:#f4f0ff; --panel:#ffffff; --panel2:#f0ebff;
+    --txt:#0a0a0a; --mut:#6b6b8a; --line:rgba(0,0,0,.1);
+    --pink:#e0187a; --lime:#5cb800; --violet:#7c3aed; --amber:#d97706; --cyan:#0891b2;
+  }
+  [data-theme="split"] body{color:#0a0a0a}
+  [data-theme="split"] nav{background:rgba(10,10,10,.95);color:#fff}
+  [data-theme="split"] nav .logo,.nav-cta{color:#fff}
+  [data-theme="split"] .stickybar{background:rgba(10,10,10,.97)}
+  [data-theme="split"] .stickybar *{color:#fff !important}
+  [data-theme="split"] .top{background:#0a0a0a;color:#fff}
+  [data-theme="split"] .top .pill{color:#888;border-color:rgba(255,255,255,.2)}
+  [data-theme="split"] .top h1.title{color:#fff}
+  [data-theme="split"] .top .sub{color:#ccc}
+  [data-theme="split"] .top .stars span{color:#ccc}
+  [data-theme="split"] .top .ship-note,.top .opt-label{color:#aaa}
+  [data-theme="split"] .top .variant{background:#1a1a1a;border-color:rgba(255,255,255,.12);color:#fff}
+  [data-theme="split"] .top .variant.active{border-color:#e0187a;background:rgba(224,24,122,.1)}
+  [data-theme="split"] .top .variant .vmeta{color:#999}
+  [data-theme="split"] .top .qty{background:#1a1a1a;border-color:rgba(255,255,255,.12)}
+  [data-theme="split"] .top .qty button,.top .qty input{color:#fff}
+  [data-theme="split"] .top .buy-now{border-color:rgba(255,255,255,.2);color:#fff}
+  [data-theme="split"] .top .assure div{color:#bbb}
+  [data-theme="split"] .top .culture-note{background:#1a1a1a;border-color:rgba(255,255,255,.1);color:#aaa;border-left-color:#d97706}
+  [data-theme="split"] .top .culture-note b{color:#d97706}
+  [data-theme="split"] .top .price-was{color:#777}
+  [data-theme="split"] .strip{background:#f4f0ff;border-color:rgba(0,0,0,.08)}
+  [data-theme="split"] .strip .lbl{color:#6b6b8a}
+  [data-theme="split"] .band{background:#f4f0ff}
+  [data-theme="split"] .band:nth-child(even){background:#fff}
+  [data-theme="split"] .ben{background:#fff;border-color:rgba(0,0,0,.08);color:#0a0a0a}
+  [data-theme="split"] .ben p{color:#6b6b8a}
+  [data-theme="split"] .lead{color:#7c3aed}
+  [data-theme="split"] .sec-h{color:#0a0a0a}
+  [data-theme="split"] .sec-sub{color:#6b6b8a}
+  [data-theme="split"] .split-img{border-color:rgba(0,0,0,.1)}
+  [data-theme="split"] .feat-list .fh{color:#0a0a0a}
+  [data-theme="split"] .feat-list .fp{color:#6b6b8a}
+  [data-theme="split"] .feat-list .fic{background:rgba(224,24,122,.1);color:#e0187a}
+  [data-theme="split"] .step-panel{background:#fff;border-color:rgba(0,0,0,.1);color:#0a0a0a}
+  [data-theme="split"] .step-panel p{color:#6b6b8a}
+  [data-theme="split"] .step-tab{background:#fff;border-color:rgba(0,0,0,.1);color:#6b6b8a}
+  [data-theme="split"] .step-tab.active{background:rgba(224,24,122,.08);border-color:#e0187a;color:#0a0a0a}
+  [data-theme="split"] .vs{border-color:rgba(0,0,0,.1)}
+  [data-theme="split"] .vs-us{background:rgba(224,24,122,.05)}
+  [data-theme="split"] .vs-them{background:#fff}
+  [data-theme="split"] .vs-col{color:#0a0a0a}
+  [data-theme="split"] .vs-col .row{border-color:rgba(0,0,0,.08);color:#6b6b8a}
+  [data-theme="split"] .vs-us .row{color:#0a0a0a}
+  [data-theme="split"] .wbh{border-color:rgba(0,0,0,.1)}
+  [data-theme="split"] .wbh-them{background:#fff;color:#0a0a0a}
+  [data-theme="split"] .wbh-them h4{color:#6b6b8a}
+  [data-theme="split"] .wbh-them .wbh-item{color:#6b6b8a}
+  [data-theme="split"] .wbh-h{color:#0a0a0a}
+  [data-theme="split"] .wbh-p{color:#6b6b8a}
+  [data-theme="split"] .ship-banner{background:#fff;border-color:rgba(0,0,0,.1)}
+  [data-theme="split"] .sb-h{color:#0a0a0a}
+  [data-theme="split"] .ship-prog-bar{background:rgba(0,0,0,.08)}
+  [data-theme="split"] .ship-prog-txt{color:#6b6b8a}
+  [data-theme="split"] .rev{background:#fff;border-color:rgba(0,0,0,.08);color:#0a0a0a}
+  [data-theme="split"] .rev p{color:#333}
+  [data-theme="split"] .guar{background:#0a0a0a;color:#fff}
+  [data-theme="split"] .guar h2,.guar p,.guar .badge{color:#fff}
+  [data-theme="split"] .final{background:#0a0a0a;color:#fff}
+  [data-theme="split"] .final p{color:#aaa}
+  [data-theme="split"] .qa{background:#fff;border-color:rgba(0,0,0,.1)}
+  [data-theme="split"] .qa summary{color:#0a0a0a}
+  [data-theme="split"] .qa .a{color:#6b6b8a}
+  [data-theme="split"] .foot-top{background:#f4f0ff}
+  [data-theme="split"] footer{background:#f4f0ff;border-color:rgba(0,0,0,.1)}
+  [data-theme="split"] .foot-col a,.foot-brand p,.foot-copy,.foot-legal-links a,.foot-disclaimer{color:#6b6b8a}
+  [data-theme="split"] .foot-news{border-color:rgba(0,0,0,.1);background:#fff}
+  [data-theme="split"] .foot-news-l .ft{color:#0a0a0a}
+  [data-theme="split"] .foot-news-form input{background:#fff;border-color:rgba(0,0,0,.15);color:#0a0a0a}
+  [data-theme="split"] .foot-social a{border-color:rgba(0,0,0,.15);color:#6b6b8a}
+  [data-theme="split"] .grid-floor{background-image:linear-gradient(rgba(124,58,237,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.25) 1px,transparent 1px)}
+  [data-theme="split"] .band .sec-h em,[data-theme="split"] .sec-h em{color:#e0187a}
+
+  /* ── THEME PICKER UI ───────────────────────────── */
+  #themepicker{
+    position:fixed;bottom:88px;right:16px;z-index:9999;
+    background:rgba(10,10,10,.96);border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;padding:16px 18px;backdrop-filter:blur(12px);
+    box-shadow:0 8px 40px rgba(0,0,0,.6);min-width:200px;
+  }
+  #themepicker h5{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#666;margin-bottom:12px}
+  .tpbtn{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border-radius:9px;border:1px solid transparent;cursor:pointer;background:transparent;text-align:left;margin-bottom:6px;transition:.14s;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;color:#ccc}
+  .tpbtn:last-child{margin-bottom:0}
+  .tpbtn:hover{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff}
+  .tpbtn.active{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff}
+  .tpswatch{width:18px;height:18px;border-radius:5px;flex-shrink:0;border:1px solid rgba(255,255,255,.15)}
+  .tplabel{flex:1}
+  .tptick{color:#c6ff4e;font-size:14px;opacity:0}
+  .tpbtn.active .tptick{opacity:1}
 </style>
 </head>
 <body>
@@ -288,7 +437,9 @@
 </div></nav>
 
 <!-- PRODUCT TOP -->
-<section class="top" id="buy"><div class="wrap">
+<section class="top grid-host" id="buy">
+  <div class="grid-floor animate"></div>
+  <div class="wrap">
   <div class="top-grid">
     <div class="gallery">
       <div class="main-img">
@@ -550,7 +701,8 @@
 </div></section>
 
 <!-- GUARANTEE -->
-<div class="guar">
+<div class="guar grid-host">
+  <div class="grid-floor"></div>
   <div class="ic"><i class="ti ti-shield-check"></i></div>
   <h2>Guaranteed to grow <em>(or we replace it free)</em></h2>
   <p>We stand behind every kit. If your kit arrives contaminated or defective, we'll send a replacement free of charge. You cannot lose.</p>
@@ -571,7 +723,8 @@
 </div></section>
 
 <!-- FINAL CTA -->
-<div class="final">
+<div class="final grid-host">
+  <div class="grid-floor"></div>
   <h2>Your next harvest <em>starts here.</em></h2>
   <p>Free shipping over $50. Guaranteed to grow. Expert support in your pocket.</p>
   <button class="atc" onclick="document.getElementById('buy').scrollIntoView()">Add to cart — $49</button>
@@ -759,5 +912,45 @@
     bar.classList.toggle('show',window.scrollY>buy.offsetHeight+200);
   });
 </script>
+<!-- THEME PICKER -->
+<div id="themepicker">
+  <h5>Color theme</h5>
+  <button class="tpbtn active" data-theme="original" onclick="setTheme('original',this)">
+    <span class="tpswatch" style="background:linear-gradient(135deg,#0a0612,#9d4edd)"></span>
+    <span class="tplabel">Original (purple)</span>
+    <span class="tptick">✓</span>
+  </button>
+  <button class="tpbtn" data-theme="black" onclick="setTheme('black',this)">
+    <span class="tpswatch" style="background:linear-gradient(135deg,#000,#222)"></span>
+    <span class="tplabel">Pure black</span>
+    <span class="tptick">✓</span>
+  </button>
+  <button class="tpbtn" data-theme="navy" onclick="setTheme('navy',this)">
+    <span class="tpswatch" style="background:linear-gradient(135deg,#060d1a,#3b82f6)"></span>
+    <span class="tplabel">Midnight navy</span>
+    <span class="tptick">✓</span>
+  </button>
+  <button class="tpbtn" data-theme="charcoal" onclick="setTheme('charcoal',this)">
+    <span class="tpswatch" style="background:linear-gradient(135deg,#111,#444)"></span>
+    <span class="tplabel">Warm charcoal</span>
+    <span class="tptick">✓</span>
+  </button>
+  <button class="tpbtn" data-theme="split" onclick="setTheme('split',this)">
+    <span class="tpswatch" style="background:linear-gradient(135deg,#0a0a0a 50%,#f4f0ff 50%)"></span>
+    <span class="tplabel">Dark/light split</span>
+    <span class="tptick">✓</span>
+  </button>
+</div>
+
+<script>
+function setTheme(t,btn){
+  const html=document.documentElement;
+  if(t==='original') html.removeAttribute('data-theme');
+  else html.setAttribute('data-theme',t);
+  document.querySelectorAll('.tpbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+
 </body>
 </html>
